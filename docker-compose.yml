@@ -35,7 +35,7 @@ services:
       - APP_SETTINGS=project.server.config.DevelopmentConfig
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - VT_API=50ecbf2832098ce47eed83d7eff91b662705fc8baeaccceddfd20f668e3473c9
+      - VT_API=f72168939bc8e38354fa95f139395b2938fa015a4cc214aeb51d45aa8d67c31d
       - POSTGRES_URL=postgresql://postgres:postgres@database:5432
       - SECRET_KEY="just a secret here"
     depends_on:
@@ -55,7 +55,7 @@ services:
       - APP_SETTINGS=project.server.config.DevelopmentConfig
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - VT_API=50ecbf2832098ce47eed83d7eff91b662705fc8baeaccceddfd20f668e3473c9
+      - VT_API=f72168939bc8e38354fa95f139395b2938fa015a4cc214aeb51d45aa8d67c31d
       - POSTGRES_URL=postgresql://postgres:postgres@database:5432
       - SECRET_KEY="just a secret here"
     depends_on:
@@ -73,7 +73,7 @@ services:
       - APP_SETTINGS=project.server.config.DevelopmentConfig
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - VT_API=50ecbf2832098ce47eed83d7eff91b662705fc8baeaccceddfd20f668e3473c9
+      - VT_API=f72168939bc8e38354fa95f139395b2938fa015a4cc214aeb51d45aa8d67c31d
     depends_on:
       - web
       - redis
