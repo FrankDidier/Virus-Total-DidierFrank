@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+
+  database:
+    image: postgres:11.5
+    container_name: database
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    healthcheck:
+      test: "pg_isready --username=postgres && psql --username=postgres --list"
+      timeout: 3s
+      retries: 20
+
+  web:
+    build: .
+    image: web
+    container_name: web
+    ports:
+      - 5004:5000
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - FLASK_DEBUG=1
+      - APP_SETTINGS=project.server.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - VT_API=50ecbf2832098ce47eed83d7eff91b662705fc8baeaccceddfd20f668e3473c9
+      - POSTGRES_URL=postgresql://postgres:postgres@database:5432
+      - SECRET_KEY="just a secret here"
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  worker:
+    build: .
+    container_name: worker
+    command: celery --app project.server.tasks.celery worker --loglevel=debug --logfile=project/logs/celery.log
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - FLASK_DEBUG=1
+      - APP_SETTINGS=project.server.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - VT_API=50ecbf2832098ce47eed83d7eff91b662705fc8baeaccceddfd20f668e3473c9
+      - POSTGRES_URL=postgresql://postgres:postgres@database:5432
+      - SECRET_KEY="just a secret here"
+    depends_on:
+      - web
+      - redis
+
+  dashboard:
+    build: .
+    container_name: dashboard
+    command: celery --app project.server.tasks.celery flower --port=5555 --broker=redis://redis:6379/0
+    ports:
+      - 5556:5555
+    environment:
+      - FLASK_DEBUG=1
+      - APP_SETTINGS=project.server.config.DevelopmentConfig
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - VT_API=50ecbf2832098ce47eed83d7eff91b662705fc8baeaccceddfd20f668e3473c9
+    depends_on:
+      - web
+      - redis
+      - worker
+
+  redis:
+    container_name: redis
+    image: redis:6-alpine
+
+volumes:
+  pgdata: {}

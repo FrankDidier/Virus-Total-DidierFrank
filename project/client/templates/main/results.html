@@ -1,0 +1,56 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="starter-template">
+  <hr><br>
+  
+  <br><br>
+  <div>
+    <h3>Task Status</h3>
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Fortinet detection name </th>
+          <th>Number of engines detected  </th>
+          <th>Scan Date</th>
+        </tr>
+      </thead>
+      <tbody id="tasks">
+        {% for task in results %}
+        <tr>
+          <td>{{ task.hash }}</td>
+          {% if task.results and task.results["data"] %}
+            <td>Completed</td>
+            <td>{{task.results["data"]["attributes"]["last_analysis_results"]["Fortinet"]["result"]}}</td>
+            <td>
+              {% set count = namespace(value=0) %}
+              {% for key, value in task.results["data"]["attributes"]["last_analysis_results"].items() %}
+              {% if value["result"] != "null" %}
+                {% set count.value = count.value +1 %}
+              {% endif %}
+              {% endfor %}
+              
+              {{count.value}}
+            </td>
+          {% elif task.results and task.results["status"] == "error" %}
+            <td>Error</td>
+            <td>{{task.results["error_message"]}}</td>
+            <td>N/A</td>
+          {% else %}
+            <td>Pending</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          {% endif %} 
+          <td>{{task.created_at.strftime('%d-%m-%Y %H:%M:%S')}} </td>
+        </tr>
+        {% endfor %}        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
