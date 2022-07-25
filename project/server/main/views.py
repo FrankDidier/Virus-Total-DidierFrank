@@ -21,21 +21,18 @@ def upload_file():
         job= Job()
         db.session.add(job)
         db.session.commit()
-        #todo guad and handle exceptions
+        
         data = uploaded_file.readlines()
         tasks = []
         for line in data:
-            # query database to find any completed task from less than one day ago 
-            # if present then created that task with the job id and results from the previous completed job
-            # get_task = Task.query.filter_by(hash=hash).first()
-            tasks.append(line.decode().strip()) #save list of hashes in array to use later
+            tasks.append(line.decode().strip())
             task = Task(hash=line.decode().strip(), job_id=job.id)
             db.session.merge(task)
             db.session.commit()
         
         g = group(fetch_file_info.s(hash,job.id) for hash 
         in tasks) # create group
-        result = g() # you may need to call g.apply_sync(), but this executes all tasks in group
+        result = g() 
         return redirect(url_for(".results",id=job.id))
     return redirect(url_for(".home"))
 
