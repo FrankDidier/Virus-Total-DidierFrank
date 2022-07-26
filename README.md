@@ -46,9 +46,15 @@ To deploy this project on internet, I used below workflow via Digital Ocean:
 
 ![plot](./digitalocean.png)
 
-[Reference](https://faun.pub/full-ci-cd-with-docker-github-actions-digitalocean-droplets-container-registry-db2938db8246)
+Documentation on how to deploy this project using Digital Ocean: [Here](https://faun.pub/full-ci-cd-with-docker-github-actions-digitalocean-droplets-container-registry-db2938db8246)
 
-To access the live application on internet, Click [here](https://faun.pub/full-ci-cd-with-docker-github-actions-digitalocean-droplets-container-registry-db2938db8246)
+## Access Live Website
+
+To access the live application on internet, please follow below:
+
+-Accessing website homepage, click [here](http://143.110.209.57:5004/)
+
+-Accessing celery flower dashboard, click [here](http://143.110.209.57:5556/)
 
 ## Author
 Isingizwe Didier Frank 
