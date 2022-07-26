@@ -40,5 +40,15 @@ $ curl http://localhost:5004/tasks/<TASK_ID>/
 
 To watch the video Demo, you can watch/download from my dropbox account: [Click here](https://www.dropbox.com/s/gza7897tj3gzvoc/Virus_Total_Demo_DidierFrank.mov?dl=0)
 
+## Deployment
+
+To deploy this project on internet, I used below workflow via Digital Ocean:
+
+![plot](./digitalocean.png)
+
+[Reference](https://faun.pub/full-ci-cd-with-docker-github-actions-digitalocean-droplets-container-registry-db2938db8246)
+
+To access the live application on internet, Click [here](https://faun.pub/full-ci-cd-with-docker-github-actions-digitalocean-droplets-container-registry-db2938db8246)
+
 ## Author
 Isingizwe Didier Frank 
