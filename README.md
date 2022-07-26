@@ -8,11 +8,13 @@ Technologies used: Python, Docker (to containerize the application), Flask (for 
 
 ## To run the project locally
 
-Make sure you have Python and Docker (the container will install all required dependencies for you directly) installed, go to the directory containing the project and run below command (however, it's advised to use Gitpod for conveniency):
+Make sure you have Python, Docker & Docker Compose installed, go to the directory containing the project and run below command (however, it's advised to use Gitpod for conveniency):
 
 ```sh
 $ docker-compose up --build
 ```
+
+N.B: The container will automatically install all required dependencies for you directly after running the above command.
 
 ## To run the project via Gitpod
 
