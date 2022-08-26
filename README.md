@@ -1,4 +1,4 @@
-# Virus Total Fortinet - Didier Frank
+# Virus Total - Didier Frank
 
 Technologies used: Python, Docker (to containerize the application), Flask (for web application) , Redis (for message broker) , celery (running asynchronous task), postgres (for database), Linux, Gitpod (for running environment).
 
